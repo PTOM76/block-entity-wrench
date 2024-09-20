@@ -13,8 +13,8 @@ public class BEWConfig {
 
     public static boolean rotateFeature = true;
     public static boolean breakFeature = true;
+    public static boolean rotateEntityFeature = true;
     public static boolean saveBlockEntity = true;
-    public static boolean rotateEntity = true;
     public static List<String> blacklistBlocks = new ArrayList<>();
 
     public static boolean changed = false;
@@ -27,11 +27,7 @@ public class BEWConfig {
         if (file.exists() && file.isFile())
             config.load(file);
 
-        rotateFeature = config.getBooleanOrCreate("rotate_feature", true);
-        breakFeature = config.getBooleanOrCreate("break_feature", true);
-        saveBlockEntity = config.getBooleanOrCreate("save_block_entity", true);
-        rotateEntity = config.getBooleanOrCreate("rotate_entity", true);
-        blacklistBlocks = (List<String>) config.getOrCreate("blacklist_blocks", getDefaultBlacklistBlocks());
+        setDefault();
 
         if (!file.exists() || !file.isFile())
             save();
@@ -53,11 +49,20 @@ public class BEWConfig {
         BEWConfig.changed = changed;
     }
 
+    public static Boolean setDefault() {
+        rotateFeature = config.getBooleanOrCreate("rotate_feature", true);
+        breakFeature = config.getBooleanOrCreate("break_feature", true);
+        saveBlockEntity = config.getBooleanOrCreate("save_block_entity", true);
+        rotateEntityFeature = config.getBooleanOrCreate("rotate_entity_feature", true);
+        blacklistBlocks = (List<String>) config.getOrCreate("blacklist_blocks", getDefaultBlacklistBlocks());
+        return true;
+    }
+
     public static void save() {
         config.set("rotate_feature", rotateFeature);
         config.set("break_feature", breakFeature);
         config.set("save_block_entity", saveBlockEntity);
-        config.set("rotate_entity", rotateEntity);
+        config.set("rotate_entity_feature", rotateEntityFeature);
         config.set("blacklist_blocks", blacklistBlocks);
         saveOnly();
     }
@@ -90,4 +95,11 @@ public class BEWConfig {
         return blacklistBlocks;
     }
 
+    public static File getFile() {
+        return file;
+    }
+
+    public static YamlConfig getConfig() {
+        return config;
+    }
 }
