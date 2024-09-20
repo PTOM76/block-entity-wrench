@@ -14,6 +14,7 @@ public class BEWConfig {
     public static boolean rotateFeature = true;
     public static boolean breakFeature = true;
     public static boolean saveBlockEntity = true;
+    public static boolean rotateEntity = true;
     public static List<String> blacklistBlocks = new ArrayList<>();
 
     public static boolean changed = false;
@@ -29,11 +30,12 @@ public class BEWConfig {
         rotateFeature = config.getBooleanOrCreate("rotate_feature", true);
         breakFeature = config.getBooleanOrCreate("break_feature", true);
         saveBlockEntity = config.getBooleanOrCreate("save_block_entity", true);
+        rotateEntity = config.getBooleanOrCreate("rotate_entity", true);
         blacklistBlocks = (List<String>) config.getOrCreate("blacklist_blocks", getDefaultBlacklistBlocks());
 
         if (!file.exists() || !file.isFile())
             save();
-        
+
     }
 
     public static void saveIfChanged() {
@@ -55,6 +57,7 @@ public class BEWConfig {
         config.set("rotate_feature", rotateFeature);
         config.set("break_feature", breakFeature);
         config.set("save_block_entity", saveBlockEntity);
+        config.set("rotate_entity", rotateEntity);
         config.set("blacklist_blocks", blacklistBlocks);
         saveOnly();
     }

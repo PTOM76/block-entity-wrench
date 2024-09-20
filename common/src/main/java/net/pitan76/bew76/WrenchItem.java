@@ -8,11 +8,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockRotation;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.pitan76.bew76.config.BEWConfig;
 import net.pitan76.mcpitanlib.api.entity.Player;
+import net.pitan76.mcpitanlib.api.event.item.ItemUseEvent;
 import net.pitan76.mcpitanlib.api.event.item.ItemUseOnBlockEvent;
+import net.pitan76.mcpitanlib.api.event.item.ItemUseOnEntityEvent;
 import net.pitan76.mcpitanlib.api.item.CompatibleItemSettings;
 import net.pitan76.mcpitanlib.api.item.DefaultItemGroups;
 import net.pitan76.mcpitanlib.api.item.ExtendItem;
@@ -76,5 +79,25 @@ public class WrenchItem extends ExtendItem {
         WorldUtil.breakBlock(world, pos, false);
 
         return ActionResult.SUCCESS;
+    }
+
+    @Override
+    public ActionResult onRightClickOnEntity(ItemUseOnEntityEvent e) {
+        if (!BEWConfig.rotateEntity) return ActionResult.PASS;
+        if (e.isClient()) return ActionResult.SUCCESS;
+
+        e.entity.applyRotation(BlockRotation.CLOCKWISE_90);
+
+        return ActionResult.SUCCESS;
+    }
+
+    @Override
+    public TypedActionResult<ItemStack> onRightClick(ItemUseEvent e) {
+        return super.onRightClick(e);
+    }
+
+    @Override
+    public boolean isDamageable() {
+        return super.isDamageable();
     }
 }
