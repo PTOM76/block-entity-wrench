@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${version}",
+  "name": "${mod_name}",
+  "description": "Add wrench to save block entity data",
+  "authors": [
+    "Pitan"
+  ],
+  "contact": {
+    "homepage": "https://curseforge.com/minecraft/mc-mods/bew76",
+    "sources": "https://github.com/PTOM76/block-entity-wrench"
+  },
+  "license": "CC0-1.0",
+  "icon": "assets/bew76/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.pitan76.bew76.fabric.BlockEntityWrenchFabric"
+    ]
+  },
+  "depends": {
+    "fabricloader": "*",
+    "minecraft": ">=1.16",
+    "mcpitanlib": "*"
+  }
+}
