@@ -1,13 +1,19 @@
 {
   "type": "crafting_shaped",
   "pattern": [
-    " I ",
-    " I ",
-    "  I"
+    " GG",
+    " RG",
+    "RI "
   ],
   "key": {
-    "I": {
+    "R": {
       "item": "minecraft:iron_ingot"
+    },
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "I": {
+      "item": "minecraft:stick"
     }
   },
   "result": {
