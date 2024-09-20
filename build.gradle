@@ -45,7 +45,7 @@ subprojects {
             curseforge {
                 apiKey = System.getenv("CURSEFORGE_TOKEN")
                 project {
-                    id = '1103376'
+                    id = '1106172'
                     changelog = rootProject.changelog + "\nMCPitanLib version: " + mcpitanlib_version.split(":")[1]
                     releaseType = 'release'
 
@@ -59,8 +59,6 @@ subprojects {
                         addGameVersion "NeoForge"
 
                     if (modLoader != "neoforge") {
-                        addGameVersion '1.16.4'
-                        addGameVersion '1.16.5'
                         addGameVersion '1.18'
                         addGameVersion '1.18.1'
                         addGameVersion '1.18.2'
