@@ -8,12 +8,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockRotation;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.pitan76.bew76.config.BEWConfig;
 import net.pitan76.mcpitanlib.api.entity.Player;
-import net.pitan76.mcpitanlib.api.event.item.ItemUseEvent;
 import net.pitan76.mcpitanlib.api.event.item.ItemUseOnBlockEvent;
 import net.pitan76.mcpitanlib.api.event.item.ItemUseOnEntityEvent;
 import net.pitan76.mcpitanlib.api.item.CompatibleItemSettings;
@@ -91,13 +89,8 @@ public class WrenchItem extends ExtendItem {
         return ActionResult.SUCCESS;
     }
 
-    @Override
-    public TypedActionResult<ItemStack> onRightClick(ItemUseEvent e) {
-        return super.onRightClick(e);
-    }
-
-    @Override
-    public boolean isDamageable() {
-        return super.isDamageable();
-    }
+//    @Override
+//    public TypedActionResult<ItemStack> onRightClick(ItemUseEvent e) {
+//        return super.onRightClick(e);
+//    }
 }
