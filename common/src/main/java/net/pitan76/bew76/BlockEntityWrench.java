@@ -1,7 +1,9 @@
 package net.pitan76.bew76;
 
+import net.pitan76.bew76.command.BEWCommand;
 import net.pitan76.bew76.config.BEWConfig;
 import net.pitan76.mcpitanlib.api.CommonModInitializer;
+import net.pitan76.mcpitanlib.api.command.CommandRegistry;
 import net.pitan76.mcpitanlib.api.registry.v2.CompatRegistryV2;
 import net.pitan76.mcpitanlib.api.util.*;
 
@@ -18,6 +20,7 @@ public class BlockEntityWrench extends CommonModInitializer {
         registry = super.registry;
 
         BEWConfig.init();
+        CommandRegistry.register("bew76", new BEWCommand());
         registry.registerExtendItem(_id("wrench"), WrenchItem::new);
     }
 
