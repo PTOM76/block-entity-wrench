@@ -34,6 +34,8 @@ public class WrenchItem extends ExtendItem {
 
             Player player = new Player(p);
             ItemStack stack = player.getStackInHand(hand);
+
+            if (player.isSneaking()) return EventResult.pass();
             if (!(stack.getItem() instanceof WrenchItem)) return EventResult.pass();
             if (player.isClient()) return EventResult.interruptTrue();
 

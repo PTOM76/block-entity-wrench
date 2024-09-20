@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BEWConfig {
-    private static final File file = new File(PlatformUtil.getConfigFolderAsFile(), "bew76.json");
+    private static final File file = new File(PlatformUtil.getConfigFolderAsFile(), "bew76.yml");
     private static final YamlConfig config = new YamlConfig(file);
 
     public static boolean rotateFeature = true;
@@ -23,16 +23,17 @@ public class BEWConfig {
     }
 
     public static void reload() {
-        if (!file.exists() && !file.isFile()) {
-            save();
-        } else {
+        if (file.exists() && file.isFile())
             config.load(file);
-        }
 
         rotateFeature = config.getBooleanOrCreate("rotate_feature", true);
         breakFeature = config.getBooleanOrCreate("break_feature", true);
         saveBlockEntity = config.getBooleanOrCreate("save_block_entity", true);
         blacklistBlocks = (List<String>) config.getOrCreate("blacklist_blocks", getDefaultBlacklistBlocks());
+
+        if (!file.exists() || !file.isFile())
+            save();
+        
     }
 
     public static void saveIfChanged() {
