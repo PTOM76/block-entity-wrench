@@ -83,7 +83,7 @@ public class WrenchItem extends ExtendItem {
 
     @Override
     public ActionResult onRightClickOnEntity(ItemUseOnEntityEvent e) {
-        if (!BEWConfig.rotateEntity) return ActionResult.PASS;
+        if (!BEWConfig.rotateEntityFeature) return ActionResult.PASS;
         if (e.isClient()) return ActionResult.SUCCESS;
 
         e.entity.applyRotation(BlockRotation.CLOCKWISE_90);
