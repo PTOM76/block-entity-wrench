@@ -1,7 +1,5 @@
 package net.pitan76.bew76;
 
-import dev.architectury.event.EventResult;
-import dev.architectury.event.events.common.InteractionEvent;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.ItemStack;
@@ -14,6 +12,8 @@ import net.pitan76.bew76.config.BEWConfig;
 import net.pitan76.mcpitanlib.api.entity.Player;
 import net.pitan76.mcpitanlib.api.event.item.ItemUseOnBlockEvent;
 import net.pitan76.mcpitanlib.api.event.item.ItemUseOnEntityEvent;
+import net.pitan76.mcpitanlib.api.event.result.EventResult;
+import net.pitan76.mcpitanlib.api.event.v0.InteractionEventRegistry;
 import net.pitan76.mcpitanlib.api.item.CompatibleItemSettings;
 import net.pitan76.mcpitanlib.api.item.DefaultItemGroups;
 import net.pitan76.mcpitanlib.api.item.ExtendItem;
@@ -30,23 +30,24 @@ public class WrenchItem extends ExtendItem {
     public WrenchItem(CompatibleItemSettings settings) {
         super(settings);
 
-        InteractionEvent.RIGHT_CLICK_BLOCK.register(((p, hand, pos, direction) -> {
+        InteractionEventRegistry.registerRightClickBlock(e -> {
             if (!BEWConfig.rotateFeature) return EventResult.pass();
 
-            Player player = new Player(p);
-            ItemStack stack = player.getStackInHand(hand);
+            Player player = e.getPlayer();
+            ItemStack stack = e.getStackInHand();
 
             if (player.isSneaking()) return EventResult.pass();
             if (!(stack.getItem() instanceof WrenchItem)) return EventResult.pass();
-            if (player.isClient()) return EventResult.interruptTrue();
+            if (player.isClient()) return EventResult.success();
 
-            World world = player.getWorld();
-            BlockState state = WorldUtil.getBlockState(world, pos);
+            World world = e.getWorld();
+            BlockPos pos = e.getPos();
+            BlockState state = e.getBlockState();
 
             WorldUtil.setBlockState(world, pos, state.rotate(BlockRotation.CLOCKWISE_90));
 
-            return EventResult.interruptTrue();
-        }));
+            return EventResult.success();
+        });
     }
 
     @Override
@@ -55,6 +56,7 @@ public class WrenchItem extends ExtendItem {
 
         if (e.isClient()) return ActionResult.SUCCESS;
         if (!e.hasBlockEntity() || !e.player.isSneaking()) return ActionResult.PASS;
+
         if (BEWConfig.blacklistBlocks.contains(BlockUtil.toCompatID(BlockStateUtil.getBlock(e.getBlockState())).toString()))
             return ActionResult.PASS;
 
@@ -66,6 +68,9 @@ public class WrenchItem extends ExtendItem {
 
         if (BEWConfig.saveBlockEntity) {
             NbtCompound nbt = BlockEntityUtil.getBlockEntityNbt(world, e.getBlockEntity());
+            if (!NbtUtil.has(nbt, "id"))
+                NbtUtil.putString(nbt, "id", BlockEntityTypeUtil.toID(BlockEntityUtil.getType(e.getBlockEntity())).toString());
+
             BlockEntityDataUtil.setBlockEntityNbt(dropStack, nbt);
         }
 
@@ -88,9 +93,4 @@ public class WrenchItem extends ExtendItem {
 
         return ActionResult.SUCCESS;
     }
-
-//    @Override
-//    public TypedActionResult<ItemStack> onRightClick(ItemUseEvent e) {
-//        return super.onRightClick(e);
-//    }
 }
