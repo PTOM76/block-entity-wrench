@@ -25,16 +25,16 @@ public class BEWCommand extends LiteralCommand {
             }
 
             @Override
-            public void execute(ServerCommandEvent event) {
+            public void execute(ServerCommandEvent e) {
                 BEWConfig.reload();
-                event.sendSuccess("[" + MOD_NAME + "] Reloaded config named \"bew76.yml\"");
+                e.sendSuccess("[" + MOD_NAME + "] Reloaded config named \"bew76.yml\"");
             }
         });
     }
 
     @Override
-    public void execute(ServerCommandEvent event) {
-        event.sendSuccess(
+    public void execute(ServerCommandEvent e) {
+        e.sendSuccess(
                 "[BlockEntityWrench] Command List: \n" +
                 " - /bew76 reload ... Reload config\n" +
                 " - /bew76 config ... Config command"

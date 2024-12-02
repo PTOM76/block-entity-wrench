@@ -72,6 +72,8 @@ subprojects {
                     if (modLoader != "forge") {
                         addGameVersion '1.21'
                         addGameVersion '1.21.1'
+                        addGameVersion '1.21.2'
+                        addGameVersion '1.21.3'
                     }
 
                     relations {
@@ -89,12 +91,11 @@ subprojects {
             }
 
         }
-    }
-        /*
+
         if (System.getenv("MODRINTH_TOKEN") != null) {
             modrinth {
                 token = System.getenv("MODRINTH_TOKEN")
-                projectId = ''
+                projectId = 'sN4qemyp'
                 versionNumber = project.mod_version + "-" + modLoader
 
                 gameVersions = []
@@ -102,7 +103,7 @@ subprojects {
                     gameVersions.addAll(['1.18', '1.18.1', '1.18.2', '1.19', '1.19.1', '1.19.2', '1.20', '1.20.1'])
                 gameVersions.add('1.20.4')
                 if (modLoader != "forge")
-                    gameVersions.addAll(['1.21', '1.21.1'])
+                    gameVersions.addAll(['1.21', '1.21.1', '1.21.2', '1.21.3'])
 
                 versionType = 'release'
                 uploadFile = tasks.remapJar
@@ -117,7 +118,6 @@ subprojects {
             }
         }
     }
-    */
 }
 
 allprojects {

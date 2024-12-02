@@ -54,7 +54,7 @@ public class BEWConfig {
         breakFeature = config.getBooleanOrCreate("break_feature", true);
         saveBlockEntity = config.getBooleanOrCreate("save_block_entity", true);
         rotateEntityFeature = config.getBooleanOrCreate("rotate_entity_feature", true);
-        blacklistBlocks = (List<String>) config.getOrCreate("blacklist_blocks", getDefaultBlacklistBlocks());
+        blacklistBlocks = (List) config.getOrCreate("blacklist_blocks", getDefaultBlacklistBlocks());
         return true;
     }
 
