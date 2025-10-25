@@ -34,7 +34,7 @@ subprojects {
         // Fabric Yarn Mappings
         mappings "net.fabricmc:yarn:${rootProject.yarn_mappings}:v2"
 
-        modApi "net.pitan76:mcpitanlib-common+${rootProject.mcpitanlib_version}"
+        modApi "net.pitan76:mcpitanlib-common-${rootProject.mcpitanlib_version}"
     }
 
 
@@ -74,6 +74,13 @@ subprojects {
                         addGameVersion '1.21.1'
                         addGameVersion '1.21.2'
                         addGameVersion '1.21.3'
+                        addGameVersion '1.21.4'
+                        addGameVersion '1.21.5'
+                        addGameVersion '1.21.6'
+                        addGameVersion '1.21.7'
+                        addGameVersion '1.21.8'
+                        addGameVersion '1.21.9'
+                        addGameVersion '1.21.10'
                     }
 
                     relations {
@@ -103,7 +110,7 @@ subprojects {
                     gameVersions.addAll(['1.18', '1.18.1', '1.18.2', '1.19', '1.19.1', '1.19.2', '1.20', '1.20.1'])
                 gameVersions.add('1.20.4')
                 if (modLoader != "forge")
-                    gameVersions.addAll(['1.21', '1.21.1', '1.21.2', '1.21.3'])
+                    gameVersions.addAll(['1.21', '1.21.1', '1.21.2', '1.21.3', '1.21.4', '1.21.5', '1.21.6', '1.21.7', '1.21.8', '1.21.9', '1.21.10'])
 
                 versionType = 'release'
                 uploadFile = tasks.remapJar

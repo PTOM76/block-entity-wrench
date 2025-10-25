@@ -3,7 +3,6 @@ package net.pitan76.bew76;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.pitan76.bew76.config.BEWConfig;
@@ -18,6 +17,7 @@ import net.pitan76.mcpitanlib.api.util.*;
 import net.pitan76.mcpitanlib.api.util.block.BlockUtil;
 import net.pitan76.mcpitanlib.api.util.entity.ItemEntityUtil;
 import net.pitan76.mcpitanlib.api.util.math.BlockRotations;
+import net.pitan76.mcpitanlib.api.util.math.PosUtil;
 import net.pitan76.mcpitanlib.midohra.item.ItemGroups;
 
 import static net.pitan76.bew76.BlockEntityWrench._id;
@@ -44,7 +44,7 @@ public class WrenchItem extends CompatItem {
             BlockPos pos = e.getPos();
             BlockState state = e.getBlockState();
 
-            WorldUtil.setBlockState(world, pos, state.rotate(BlockRotations.CLOCKWISE_90));
+            WorldUtil.setBlockState(world, pos, BlockStateUtil.rotate(state, BlockRotations.CLOCKWISE_90));
 
             return EventResult.success();
         });
@@ -67,14 +67,10 @@ public class WrenchItem extends CompatItem {
         ItemStack dropStack = ItemStackUtil.create(state.getBlock());
 
         if (BEWConfig.saveBlockEntity) {
-            NbtCompound nbt = BlockEntityUtil.getBlockEntityNbt(world, e.getBlockEntity());
-            if (!NbtUtil.has(nbt, "id"))
-                NbtUtil.putString(nbt, "id", BlockEntityTypeUtil.toID(BlockEntityUtil.getType(e.getBlockEntity())).toString());
-
-            BlockEntityDataUtil.setBlockEntityNbt(dropStack, nbt);
+            BlockEntityUtil.writeToStack(dropStack, e.getBlockEntity(), RegistryLookupUtil.getRegistryLookup(e.getBlockEntity()));
         }
 
-        ItemEntity itemEntity = ItemEntityUtil.create(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, dropStack);
+        ItemEntity itemEntity = ItemEntityUtil.create(world, PosUtil.x(pos) + 0.5, PosUtil.y(pos) + 0.5, PosUtil.z(pos) + 0.5, dropStack);
         ItemEntityUtil.setToDefaultPickupDelay(itemEntity);
         WorldUtil.spawnEntity(world, itemEntity);
 
